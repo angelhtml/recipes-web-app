@@ -7,7 +7,7 @@ import { FaChevronRight, FaUser } from 'react-icons/fa6';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function Card({props}: any){
-  const [page,setPage]= useState(2);
+  const [page,setPage]= useState(1);
   const [more, setMore] = useState(true)
   const [loader, setLoader] = useState("Loading ...")
   const [newsText, setNewsText] = useState([]);
@@ -107,7 +107,7 @@ export default function Card({props}: any){
                 <p className='mt-4 text-tiny'>{i.description?.substring(0, 160)} ...</p>
                 <div className='flex items-center gap-2 pt-4 text-primery font-extrabold'>
                   <FaChevronRight />
-                  <Link href={`/index/${i._id}`} target='_blank'> Read More </Link>
+                  <Link className='border-b-1 border-b-tiny' href={`/index/${i._id}`} target='_blank'> Read More </Link>
                 </div>
               </div>
               )}
