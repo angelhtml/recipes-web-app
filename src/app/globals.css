@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+
+:root {
+  --background: #F2F2F2;
+  --foreground: #ffffff;
+  --primery: #333333;
+  --primery2: #1a1a1a;
+  --primery3: #aaaaaa;
+  --primery4: #F9F9F9;
+  --primery5: #E6E6E6;
+  --primery6: #FCF4E6;
+  --primery7: #6B6B6B;
+  --bg : #b3b1b3;
+  --shadow: 10px 35px 35px 10px rgb(0, 0, 0);
+  --tiny: #555555;
+  --blue-normal: #D5E3FD;
+  --blue: #286EF1;
+}
+
+@theme {
+  --color-prime: var(--bg);
+  --shadow-circle: var(--shadow);
+  --color-primery: var(--primery);
+  --color-primery2: var(--primery2);
+  --color-primery3: var(--primery3);
+  --color-primery4: var(--primery4);
+  --color-primery5: var(--primery5);
+  --color-primery6: var(--primery6);
+  --color-primery7: var(--primery7);
+  --color-tiny : var(--tiny);
+  --color-grey: var(--tiny);
+  --color-normalblue : var(--blue-normal);
+  --color-sea: var(--blue);
+  --breakpoint-ss: 250px;
+}
+
+
+
+
+body {
+  color: black;
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+input[type="checkbox"] {
+  background: white !important;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--blue); /* Example: Green */
+}
+
+input[type="checkbox"]:hover {
+  /* Styles for the hover state */
+  cursor: pointer;
+}
+
+.loading{
+  animation-name: Loading;
+  animation-timing-function: linear;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes Loading{
+  0%{
+    rotate: 0deg;
+  }
+  100%{
+    rotate: 360deg;
+  }
+}
