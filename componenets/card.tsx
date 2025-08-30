@@ -25,7 +25,6 @@ export default function Card({props}: any){
       url:`${process.env.URL}api/allrecpies?size=${10}&page=${page}`,
     })
     .then( function (res){
-      console.log(res.data)
       if (res.status === 200) {
         // end of the data
         /*
@@ -96,25 +95,33 @@ export default function Card({props}: any){
         </div>
 
         </InfiniteScroll>*/}
-        <div className="flex flex-wrap gap-6 justify-center mt-12">
-          {newsText && newsText.map((i : any, index: any) => 
-            <div key={index} className="w-96 p-5 flex flex-col border-gray-100 shadow-2xl border-2 rounded-md">
-              <b className='text-xl'>{i.name}</b>
-              <div className='flex mt-6 items-center gap-2'>
-                <FaUser className='text-[1.2rem] text-gray-800'/>
-                <p className='text-gray-800'>{i.author}</p>
+        {newsText ? <div>
+          <div className="flex flex-wrap gap-6 justify-center mt-12">
+            {newsText.map((i : any, index: any) => 
+              <div key={index} className="w-96 p-5 flex flex-col border-gray-100 shadow-2xl border-2 rounded-md">
+                <b className='text-xl'>{i.name}</b>
+                <div className='flex mt-6 items-center gap-2'>
+                  <FaUser className='text-[1.2rem] text-gray-800'/>
+                  <p className='text-gray-800'>{i.author}</p>
+                </div>
+                <p className='mt-4 text-tiny'>{i.description?.substring(0, 160)} ...</p>
+                <div className='flex items-center gap-2 pt-4 text-primery font-extrabold'>
+                  <FaChevronRight />
+                  <Link href={`/index/${i._id}`} target='_blank'> Read More </Link>
+                </div>
               </div>
-              <p className='mt-4 text-tiny'>{i.description?.substring(0, 160)} ...</p>
-              <div className='flex items-center gap-2 pt-4 text-primery font-extrabold'>
-                <FaChevronRight />
-                <Link href={`/index/${i._id}`} target='_blank'> Read More </Link>
-              </div>
-            </div>
-            )}
+              )}
+          </div>
+          <center>
+            <button className='py-3 px-16 rounded-xl my-8 bg-primery text-white cursor-pointer' onClick={fetchMoreData}>Load More ...</button>
+          </center>
         </div>
-        <center>
-          <button className='py-3 px-16 rounded-xl my-8 bg-primery text-white cursor-pointer' onClick={fetchMoreData}>Load More ...</button>
-        </center>
+        :
+        <div className='absolute top-[50vh] flex flex-col gap-4 w-[100%] justify-center items-center'>
+          <img style={{width:"50px", height:"50px"}} className='loading' src="./Loading.png" alt="loading"/>
+          <h1 className='text-gray-500 font-extrabold'>Loading 🔥</h1>
+        </div>
+        }
         </div>
     )
 }
