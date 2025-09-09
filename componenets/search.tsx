@@ -45,7 +45,7 @@ export default function Search(){
 
     return(
         <>
-        <div className="w-[90%] ml-[5%] my-[4rem]">
+        <div className="w-[90%] ml-[5%] my-[4rem] mt-[8rem]">
             <div className="h-14 border-2 border-gray-100 shadow-2xl rounded-3xl flex items-center justify-between">
                 <input onChange={(i) => Find(i.target.value)} className="w-[100%] ml-4 focus:border-0 outline-0" type="text" placeholder="Search ..."/>
                 <FaSearch className="mr-4"/>

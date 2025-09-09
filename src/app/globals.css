@@ -47,6 +47,9 @@ body {
   overflow-x: hidden;
 }
 
+button{
+  cursor: pointer;
+}
 
 
 a {
@@ -72,6 +75,11 @@ input[type="checkbox"] {
 input[type="checkbox"]:hover {
   /* Styles for the hover state */
   cursor: pointer;
+}
+
+input:focus{
+  background-color: transparent;
+  outline: none;
 }
 
 .loading{

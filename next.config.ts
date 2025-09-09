@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
     //output: 'export', 
     env: {
     MONGODB_URI: process.env.MONGODB_URI,
-    URL: process.env.URL
+    URL: process.env.URL,
+    SECRET_JWT: process.env.SECRET_JWT,
+    SOKET_URL: process.env.SOKET_URL
   },
 };
 
