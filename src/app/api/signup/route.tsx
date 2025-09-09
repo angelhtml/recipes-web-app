@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import uniqid from 'uniqid';
 
  
-export async function POST(request: NextRequest, response: Response) {
+export async function POST(request: NextRequest) {
   try{
     await connectToMongoDB()
     const data = await request.json()

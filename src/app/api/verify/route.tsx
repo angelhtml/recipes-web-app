@@ -2,7 +2,7 @@
 import { NextResponse,NextRequest } from "next/server"
 import { Verfiy } from "../../../../services/verify";
  
-export async function POST(request: NextRequest, response: Response) {
+export async function POST(request: NextRequest) {
     try{
         const data = await request.json()
         

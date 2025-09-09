@@ -1,23 +1,6 @@
 
 import Chat from "../../../../../componenets/chat"
-
-export async function GetGuestInfo(id: string){
-    try{
-        const posts = await fetch(`${process.env.URL}/api/userinfo`, {
-            method:"POST",
-            body: JSON.stringify({id: id}),
-            next: {revalidate: 60}
-        })
-
-        const res = await posts.json()
-
-        return res
-
-    }
-    catch(err){
-        console.log(err)
-    }
-}
+import { GetGuestInfo } from "../../../../../services/guestInfo"
 
 export default async function Page({ params }: any /*{ params: { slug: string } }*/) {
     const get_param = await params

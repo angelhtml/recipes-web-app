@@ -10,7 +10,7 @@ interface Data {
     getter: string
 }
 
-export async function POST(req: NextRequest, res: NextResponse){
+export async function POST(req: NextRequest){
     try{
         await connectToMongoDB()
         const data : Data = await req.json()
