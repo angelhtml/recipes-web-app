@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {io} from "socket.io-client";
 import { useRouter } from "next/navigation";
-const socket = io("http://localhost:3001");
+const socket = io(`${process.env.SOKET_URL}`);
 import { FaUserCircle } from "react-icons/fa";
 import Navbar from "./nvabar";
 
