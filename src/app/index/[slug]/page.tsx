@@ -1,4 +1,5 @@
 
+
 import Recipe from "../../../../componenets/recipe"
 import GetRecipe from "../../../../services/getrecipe"
 
@@ -27,8 +28,6 @@ export default async function Page({ params }: any /*{ params: { slug: string } 
     const recipe_id = await params
     const data = await GetRecipe(recipe_id.slug)
 
-
-
     if(data != null){
       return (
         <>
@@ -37,6 +36,10 @@ export default async function Page({ params }: any /*{ params: { slug: string } 
       )
     }
     else{
-      return <div>recipe not found</div>
+      return (
+        <>
+          <h1 className="text-3xl w-full h-[100vh] flex justify-center items-center text-tiny font-extrabold">Recipe Not Found ☹</h1>
+        </>
+      )
     }
   }
