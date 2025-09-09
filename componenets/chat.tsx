@@ -20,8 +20,10 @@ interface sender_token_type {
 
 export default function Chat({props, getter_info} : any){
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    console.log(process.env.SOKET_URL)
+
     
+    console.log(process.env.SOKET_URL)
+
 
     const route = useRouter()
     const [message, setMessage] = useState("")
