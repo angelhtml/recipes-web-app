@@ -6,15 +6,26 @@ import { useEffect, useState } from 'react';
 import { FaChevronRight, FaUser } from 'react-icons/fa6';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { useInView } from 'react-intersection-observer';
+
 export default function Card({props}: any){
+
   const [page,setPage]= useState(1);
   const [more, setMore] = useState(true)
   const [loader, setLoader] = useState("Loading ...")
   const [newsText, setNewsText] = useState([]);
 
-  useEffect(() => {
-    fetchMoreData()
-  },[])
+  
+const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false, // Same as "once" prop
+  });
+
+   useEffect(() => {
+    if(inView){
+      fetchMoreData()
+    }
+  },[inView])
 
 
   const fetchMoreData = async () => {
@@ -43,6 +54,10 @@ export default function Card({props}: any){
     })
     
   }
+
+
+
+
 
 
 
@@ -95,7 +110,7 @@ export default function Card({props}: any){
         </div>
 
         </InfiniteScroll>*/}
-        {newsText ? <div>
+        {newsText && <div>
           <div className="flex flex-wrap gap-6 justify-center mt-12">
             {newsText.map((i : any, index: any) => 
               <div key={index} className="w-96 p-5 flex flex-col border-gray-100 shadow-2xl border-2 rounded-md">
@@ -112,16 +127,22 @@ export default function Card({props}: any){
               </div>
               )}
           </div>
-          <center>
-            <button className='py-3 px-16 rounded-xl my-8 bg-primery text-white cursor-pointer' onClick={fetchMoreData}>Load More ...</button>
-          </center>
-        </div>
-        :
-        <div className='absolute top-[50vh] flex flex-col gap-4 w-[100%] justify-center items-center'>
-          <img style={{width:"50px", height:"50px"}} className='loading' src="./Loading.png" alt="loading"/>
-          <h1 className='text-gray-500 font-extrabold'>Loading 🔥</h1>
         </div>
         }
+
+        <div ref={ref}>
+          <div>
+            {inView ?
+            null
+           : 
+            <div className='flex flex-col gap-4 w-[100%] justify-center items-center mt-12'>
+              <img style={{width:"50px", height:"50px"}} className='loading' src="./Loading.png" alt="loading"/>
+              <h1 className='text-gray-500 font-extrabold'>Loading ...</h1>
+            </div>
+           }
+          </div>
+        </div>
+
         </div>
     )
 }

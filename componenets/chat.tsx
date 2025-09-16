@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 const socket = io(`${process.env.SOKET_URL}`);
 import { FaUserCircle } from "react-icons/fa";
 import Navbar from "./nvabar";
+import UserVerify from "../services/userVerify";
 
 
 interface sender_token_type {
@@ -20,10 +21,6 @@ interface sender_token_type {
 
 export default function Chat({props, getter_info} : any){
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
-
-    console.log("socket: " ,process.env.SOKET_URL)
-
 
     const route = useRouter()
     const [message, setMessage] = useState("")
@@ -79,6 +76,23 @@ export default function Chat({props, getter_info} : any){
         async function GetUserInfo(){
 
             try{
+                const user_token = localStorage.getItem('token')
+                        const user_verifing : any  = await UserVerify(String(user_token))
+                        
+                        if(user_verifing?.success){
+                                setSender(user_verifing.data._id)
+                                setSenderInfo(user_verifing.data)
+                            }
+                        /*
+                        else if(user_verifing?.success == false){
+                            route.push("/signup")
+                        }
+                        else{
+                            route.push("/signup")
+                        }*/
+                    
+
+                /*
                 const posts = await fetch('/api/verify', {
                     next: {revalidate: 60},
                     method: "post",
@@ -98,7 +112,7 @@ export default function Chat({props, getter_info} : any){
                 }
                 else{
                     route.push("/signup")
-                }
+                }*/
             }
             
             catch(err){
