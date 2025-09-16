@@ -5,9 +5,22 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa6";
+import SearchRecipes from "../services/searchRecipes";
+
+interface search_index {
+  _id: string,
+    name: string,
+    description: string,
+    author: string,
+    date: number,
+    uniqid: string,
+    __v: number,
+    relevance: number
+}
+
 
 export default function Search(){
-    const [result, setResult] = useState<[]>([])
+    const [result, setResult] = useState<search_index[]>([])
 
     const variant = {
         open: {translateX:"0px"},
@@ -15,6 +28,9 @@ export default function Search(){
     }
 
     const Find = async (i: string) => {
+      const data = await SearchRecipes(i)
+      setResult(data)
+      /*
         try {
           const response = await fetch('/api/search', { // Target your API endpoint
             method: 'POST',
@@ -41,6 +57,7 @@ export default function Search(){
           console.error('Error posting data:', error);
           // Handle errors, e.g., show error message to user
         }
+          */
     }
 
     return(
@@ -53,7 +70,7 @@ export default function Search(){
             
             <div className="max-h-80 overflow-y-scroll overflow-x-hidden">
             <AnimatePresence>
-                {result.map((i:any, index:any) => 
+                {result && result.map((i:any, index:any) => 
 
                     <motion.div key={index} initial={{translateX:"-150px"}} animate={result ? "open" : "closed"} variants={variant} className="h-14 p-8" >
                         <Link href={`/index/${i._id}`} target="_blank" className="flex items-center gap-2">

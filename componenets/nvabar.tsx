@@ -4,18 +4,26 @@ import { AiOutlineMenu, AiOutlineClose  } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { motion } from "motion/react"
 import { useEffect, useState } from "react";
-import axios from "axios";
+import UserVerify from "../services/userVerify";
 
-interface user_type {
+
+interface user_verified_token_type {
+  msg: string,
+  success: boolean,
+  admin: boolean,
+  data: {
     email: string,
+    username: string,
     join_date: number,
-    username: string
+    uniquId: string,
+    _id: string
+  }
 }
 
 
 export default function Navbar(){
     const [menu_opened, setMenu_opened] = useState<boolean>(false)
-    const [userData, setUserData] = useState<user_type | null>(null)
+    const [userData, setUserData] = useState<user_verified_token_type | null>(null)
     const route = useRouter()
 
     // animation variant
@@ -30,25 +38,22 @@ export default function Navbar(){
         VerifyUser()
         console.log("logout")
         route.refresh()
+        window.location.reload()
     }
 
     //verify user data
-    const VerifyUser = () => {
-        axios({
-            method: "POST",
-            url: "/api/verify",
-            data: {token: localStorage.getItem('token')}
-        })
-        .then( (res) => {
-            console.log(res.data)
-            if(res.data?.success){
-                setUserData(res.data.data)
+    const VerifyUser = async () => {
+        const user_token = localStorage.getItem('token')
+        const user_verifing : user_verified_token_type = await UserVerify(String(user_token))
+
+        console.log(user_verifing)
+
+        if(user_verifing?.success){
+                setUserData(user_verifing)
             }
-            else if(res.data?.success == false){}
-        })
-        .catch( (err) =>{
-            console.log(err)
-        })
+        else if(user_verifing?.success == false){
+            //alert("Please Signup in website")
+        }
     }
 
     useEffect(() =>{
@@ -76,8 +81,9 @@ export default function Navbar(){
                             </> 
                             : 
                             <>
+                                {userData?.admin &&  <button onClick={() => route.push("/dashboard")} className="py-2 hover:text-blue-200">Dashboard</button>}
                                 <button onClick={Logout} className="py-2 hover:text-blue-200">Logout</button>
-                                <motion.button whileHover={{scale:1.05}} className="flex items-center gap-2 text-[1.1rem] bg-blue-100 px-4 rounded-xl border-4 text-primery border-blue-200 py-1 hover:text-blue-500"><FaUserCircle className="text-[1.8rem]"/>{userData?.username}</motion.button>
+                                <motion.button whileHover={{scale:1.05}} className="flex items-center gap-2 text-[1.1rem] bg-blue-100 px-4 rounded-xl border-4 text-primery border-blue-200 py-1 hover:text-blue-500"><FaUserCircle className="text-[1.8rem]"/>{userData?.data?.username}</motion.button>
                             </>
                         }
                     
@@ -100,7 +106,8 @@ export default function Navbar(){
                     </> 
                     : 
                     <>
-                        <button className="py-2 hover:text-blue-200">{userData?.username}</button>
+                        {userData?.admin && <button onClick={() => route.push("/dashboard")} className="py-2 hover:text-blue-200">Dashboard</button>}
+                        <button className="py-2 hover:text-blue-200">{userData?.data?.username}</button>
                         <button onClick={Logout} className="py-2 hover:text-blue-200">Logout</button>
                     </>
                 }

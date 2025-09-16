@@ -8,8 +8,19 @@ const nextConfig: NextConfig = {
     MONGODB_URI: process.env.MONGODB_URI,
     URL: process.env.URL,
     SECRET_JWT: process.env.SECRET_JWT,
-    SOKET_URL: process.env.SOKET_URL
+    SOKET_URL: process.env.SOKET_URL,
   },
+  experimental: {
+    useCache: true,
+    /*
+        cacheLife: {
+          liveQuote: {
+            revalidate: 1, // Revalidate every 1 second
+            expire: 60, // Expire after 1 minute
+          },
+        },
+        */
+      },
 };
 
 export default nextConfig;
