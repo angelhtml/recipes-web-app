@@ -6,8 +6,6 @@ import { cookies } from "next/headers";
 export async function DeleteCookie(){
 
   const cookieStore = await cookies();
-  
-  cookieStore.delete('token');
 
   // Alternative: Set with expired date and same configuration as creation
   cookieStore.set({
@@ -16,7 +14,9 @@ export async function DeleteCookie(){
     expires: new Date(0), // Expire immediately
     path: '/',
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
   });
+
+  cookieStore.delete('token');
 
 }
