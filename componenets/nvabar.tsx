@@ -37,7 +37,8 @@ export default function Navbar(){
      //logout
     const Logout = async () => {
         localStorage.removeItem('token')
-        DeleteCookie()
+        await fetch("/api/logout",{method:"POST"})
+        //DeleteCookie()
         VerifyUser()
         console.log("logout")
         route.refresh()
