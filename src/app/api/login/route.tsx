@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
                         // if everythings was correctly send the user token by response header
                         if(verify_jwt){
-                            
+
                             // set token in cookie for 1 week
                             cookieStore.set({
                               name: 'token',
@@ -71,13 +71,13 @@ export async function POST(request: NextRequest) {
                             // set token in cookie for 1 week
                             cookieStore.set({
                               name: 'token',
-                              value: find_user[0].token,
+                              value: token,
                               httpOnly: true,
                               secure: true, // Recommended for production
                               maxAge: 60 * 60 * 24 * 7, // 1 week
                             });
 
-                            return NextResponse.json({msg: "ok",success: true},{status: 200 ,headers:{token: find_user[0].token}})
+                            return NextResponse.json({msg: "ok",success: true},{status: 200 ,headers:{token: token}})
 
                         }
 
