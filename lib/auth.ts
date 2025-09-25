@@ -4,5 +4,18 @@
 import { cookies } from "next/headers";
 
 export async function DeleteCookie(){
-    (await cookies()).delete('token')
+
+  const cookieStore = await cookies();
+  
+  cookieStore.delete('token');
+
+  // Alternative: Set with expired date and same configuration as creation
+  cookieStore.set({
+    name: 'token',
+    value: '',
+    expires: new Date(0), // Expire immediately
+    path: '/',
+    secure: process.env.NODE_ENV === 'production',
+  });
+
 }
