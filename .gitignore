@@ -3,6 +3,8 @@
 # dependencies
 /socket
 /node_modules
+type-tailwind_mongo.zip
+test.zip
 /.pnp
 .pnp.*
 .yarn/*

@@ -55,7 +55,7 @@ export default function Page(){
             Get_Users()
         }
         else if(tab == "recipes"){
-            Get_Recipes()
+            Get_Recipes
         }
           
     },[tab])

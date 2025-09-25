@@ -11,7 +11,7 @@ import { useInView } from 'react-intersection-observer';
 export default function Card({props}: any){
 
   const [page,setPage]= useState(1);
-  const [more, setMore] = useState(true)
+  //const [more, setMore] = useState(true)
   const [loader, setLoader] = useState("Loading ...")
   const [newsText, setNewsText] = useState([]);
 
@@ -37,11 +37,6 @@ const { ref, inView } = useInView({
     })
     .then( function (res){
       if (res.status === 200) {
-        // end of the data
-        /*
-        if(res.data[0] == undefined){
-          setMore(false)
-        }*/
         if(res.data){
           setNewsText(newsText.concat(res.data))
         }

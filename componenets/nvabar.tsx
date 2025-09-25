@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { motion } from "motion/react"
 import { useEffect, useState } from "react";
 import UserVerify from "../services/userVerify";
+import { DeleteCookie } from "../lib/auth";
 
 
 interface user_verified_token_type {
@@ -22,6 +23,7 @@ interface user_verified_token_type {
 
 
 export default function Navbar(){
+    
     const [menu_opened, setMenu_opened] = useState<boolean>(false)
     const [userData, setUserData] = useState<user_verified_token_type | null>(null)
     const route = useRouter()
@@ -35,6 +37,7 @@ export default function Navbar(){
      //logout
     const Logout = () => {
         localStorage.removeItem('token')
+        DeleteCookie()
         VerifyUser()
         console.log("logout")
         route.refresh()
