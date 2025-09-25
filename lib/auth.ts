@@ -15,6 +15,7 @@ export async function DeleteCookie(){
     value: '',
     expires: new Date(0), // Expire immediately
     path: '/',
+    httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   });
 
