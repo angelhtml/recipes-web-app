@@ -6,6 +6,7 @@ import connectToMongoDB from "../../../../services/db";
 export async function GET(req: NextRequest) {
     try{
         await connectToMongoDB()
+
         // get the params from url (http://localhost:3000/api/allrecpies?size=9&page=1)
         const searchParams = await req.nextUrl.searchParams;
         const size : number =  Number(searchParams.get("size"))

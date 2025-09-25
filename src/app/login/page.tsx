@@ -53,7 +53,6 @@ export default function Page(){
           })
         .then(function (res) {
             //if was success
-            console.log(res.data)
             if(res.data?.success){
                 localStorage.setItem("token", res.headers?.token)
                 route.push("/")

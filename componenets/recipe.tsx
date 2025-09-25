@@ -44,7 +44,7 @@ export default function Recipe({data}:  any){
                                 <FaUserCircle className='text-[2.1rem] text-gray-800'/>
                                 <p className='text-gray-800'>{data.author}</p>
                             </div>
-                            <motion.button onClick={Message} /*${data?.author_info[0]?._id} */ whileHover={{scale:1.05}} className="flex items-center gap-2 bg-blue-100 border-2 border-blue-200 text-tiny px-4 py-2 rounded-[5px] mr-1 hover:bg-blue-200 hover:text-black"><FaMessage/> Message</motion.button>
+                            <motion.button onClick={Message} whileHover={{scale:1.05}} className="flex items-center gap-2 bg-blue-100 border-2 border-blue-200 text-tiny px-4 py-2 rounded-[5px] mr-1 hover:bg-blue-200 hover:text-black"><FaMessage/> Message</motion.button>
                         </div>
                     <ul>
                         <li className="font-extrabold">Ingredients :</li>

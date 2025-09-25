@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import validator from 'validator';
 import bcrypt from "bcrypt";
 import { Verfiy } from "../../../../services/verify";
+import { cookies } from 'next/headers';
 
 
  
@@ -13,6 +14,7 @@ export async function POST(request: NextRequest) {
     try{
         await connectToMongoDB()
         const data = await request.json()
+        const cookieStore = await cookies();
     
         //password and email validator
         const valid_password : number = validator.isStrongPassword(data?.password,{ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1, returnScore:true})
@@ -36,6 +38,16 @@ export async function POST(request: NextRequest) {
 
                         // if everythings was correctly send the user token by response header
                         if(verify_jwt){
+
+                            // set token in cookie for 1 week
+                            cookieStore.set({
+                              name: 'token',
+                              value: find_user[0].token,
+                              httpOnly: true,
+                              secure: true, // Recommended for production
+                              maxAge: 60 * 60 * 24 * 7, // 1 week
+                            });
+
                             return NextResponse.json({msg: "ok",success: true},{status: 200 ,headers:{token: find_user[0].token}})
                         }
 
@@ -56,7 +68,16 @@ export async function POST(request: NextRequest) {
                             }, secretJwt, { expiresIn: "7d" });
                             const new_update = await user.findOneAndUpdate({email:find_user[0].email},{token: token})
 
-                            return NextResponse.json({msg: "ok",success: true},{status: 200 ,headers:{token: find_user[0].token}})
+                            // set token in cookie for 1 week
+                            cookieStore.set({
+                              name: 'token',
+                              value: token,
+                              httpOnly: true,
+                              secure: true, // Recommended for production
+                              maxAge: 60 * 60 * 24 * 7, // 1 week
+                            });
+
+                            return NextResponse.json({msg: "ok",success: true},{status: 200 ,headers:{token: token}})
 
                         }
 
