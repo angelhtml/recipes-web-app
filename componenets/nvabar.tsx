@@ -35,7 +35,7 @@ export default function Navbar(){
     }
 
      //logout
-    const Logout = () => {
+    const Logout = async () => {
         localStorage.removeItem('token')
         DeleteCookie()
         VerifyUser()
